@@ -1,4 +1,5 @@
 const shortid = require('shortid');
+const format = require('pg-format');
 const db = require('../db');
 const { readJsonFromDb, writeJsonToDb } = require('../utils/db.utils');
 const { ErrorWithHttpStatus } = require('../utils/ErrorWithHttpStatus');
@@ -46,25 +47,25 @@ exports.insert = ({ author, code, title, description, language }) => {
  * @param {Object} [query]
  * @returns {Promise<Snippet[]>} array of Snippet objects
  */
-// exports.select = async query => {
-//   try {
-//     const clauses = Object.keys(query)
-//       .map((key, i) => `%I = $${i + 1}`)
-//       .join(' AND ');
 
-//     const formattedSelect = format(
-//       `SELECT * FROM snippet ${clauses.length ? `WERE ${clauses}` : ''}`,
-//       ...Object.keys(query)
-//     );
+exports.select = async query => {
+  try {
+    const clauses = Object.keys(query)
+      .map((key, i) => `%I = $${i + 1}`)
+      .join(' AND ');
 
-//     const results = await db.query(formattedSelect, Object.values(query));
-//     return results.rows;
-//   } catch (err) {
-//     console.log(err);
-//     throw err;
-//   }
-// };
+    const formattedSelect = format(
+      `SELECT * FROM snippet ${clauses.length ? `WERE ${clauses}` : ''}`,
+      ...Object.keys(query)
+    );
 
+    const results = await db.query(formattedSelect, Object.values(query));
+    return results.rows;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
 /**
  * Updates a snippet
  * @param {string} id - id of the snippet to update
