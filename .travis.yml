@@ -1,7 +1,7 @@
 language: node_js
 node_js:
--node
+  - node
 servives: 
--postgresql
+  - postgresql
 beofre_script: 
--psql -c 'create database snips_test' -U postgres
+  - psql -c 'create database snips_test' -U postgres
