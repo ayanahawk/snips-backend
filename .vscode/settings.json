@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "snips",
+            "dialect": "PostgreSQL",
+            "isActive": true,
+            "isConnected": true,
+            "name": "hawk-postgres",
+            "password": "newPassword",
+            "port": 5432,
+            "server": "localhost",
+            "username": "ahawk"
+        }
+    ]
+}
